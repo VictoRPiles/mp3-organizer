@@ -1,9 +1,4 @@
-import com.mpatric.mp3agic.InvalidDataException;
-import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -30,16 +25,8 @@ public abstract class CancionUtils {
 				System.out.printf("ERROR: %s no es un fichero mp3.\n", ruta);
 				return null;
 			}
-
-			Mp3File ficheroMp3;
-			try {
-				ficheroMp3 = new Mp3File(fichero);
-			} catch (InvalidDataException | UnsupportedTagException | IOException e) {
-				throw new RuntimeException(e);
-			}
-
 			/* Si no es un directorio devuelve un Array con una sola canción */
-			return new Cancion[]{new Cancion(ficheroMp3)};
+			return new Cancion[]{new Cancion(fichero)};
 		}
 
 		System.out.printf("%s es un directorio, iniciando búsqueda recursiva...\n", ruta);
@@ -67,13 +54,7 @@ public abstract class CancionUtils {
 		}
 
 		if (root.getPath().endsWith(".mp3")) {
-			Mp3File ficheroMp3;
-			try {
-				ficheroMp3 = new Mp3File(root);
-			} catch (InvalidDataException | UnsupportedTagException | IOException e) {
-				throw new RuntimeException(e);
-			}
-			listaCanciones.add(new Cancion(ficheroMp3));
+			listaCanciones.add(new Cancion(root));
 		}
 	}
 }

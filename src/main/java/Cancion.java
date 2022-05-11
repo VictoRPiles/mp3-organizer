@@ -1,7 +1,7 @@
-import com.mpatric.mp3agic.ID3v1;
-import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
 /**
@@ -9,10 +9,16 @@ import java.nio.file.Path;
  * @since 09/05/2022 - 12:55
  */
 public class Cancion {
+	private final File fichero;
 	private final Mp3File ficheroMp3;
 
-	public Cancion(Mp3File ficheroMp3) {
-		this.ficheroMp3 = ficheroMp3;
+	public Cancion(File fichero) {
+		this.fichero = fichero;
+		try {
+			this.ficheroMp3 = new Mp3File(fichero);
+		} catch (IOException | UnsupportedTagException | InvalidDataException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -105,6 +111,6 @@ public class Cancion {
 	}
 
 	public Path getRuta() {
-		return Path.of(ficheroMp3.getFilename());
+		return Path.of(fichero.getAbsolutePath());
 	}
 }
