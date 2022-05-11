@@ -78,6 +78,12 @@ public class Cancion {
 		}
 		if (ficheroMp3.hasId3v2Tag()) {
 			ID3v2 id3v2Tag = ficheroMp3.getId3v2Tag();
+
+			/* Mejor devolver el artista del album, por si una canción tiene más de una artista */
+			if (!id3v2Tag.getAlbumArtist().isEmpty()) {
+				return id3v2Tag.getAlbumArtist();
+			}
+
 			return id3v2Tag.getArtist();
 		}
 
