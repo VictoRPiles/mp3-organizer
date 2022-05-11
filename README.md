@@ -37,8 +37,10 @@ Elige un árbol de directorios -> CHOOSE_DIRECTORY_TREE
 Creando directorios...
 ```
 
-NOTE: If a path to a directory has been given, it will recursively search for the music files inside the folder and
+NOTE: If a path to a directory has been given, the program will recursively search for the music files inside the folder and
 sub folders.
+
+Please note that the files have to be .mp3 and have to contain metadata. To download songs with proper metadata I recommend [spotdl](https://github.com/spotDL/spotify-downloader).
 
 That simple!!! Now the program will copy the songs with the selected directory tree structure.
 
