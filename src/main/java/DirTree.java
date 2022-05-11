@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -40,6 +42,7 @@ public abstract class DirTree {
 	 */
 	public static void create(Cancion[] canciones) throws Exception {
 		Path ruta = null;
+		Path directorios = null;
 
 		if (tipoDirTree == null) {
 			throw new Exception("No se ha establecido el árbol de directorios");
@@ -47,11 +50,31 @@ public abstract class DirTree {
 
 		for (Cancion cancion : canciones) {
 			switch (tipoDirTree) {
-				case AR_AL_TI -> ruta = Paths.get(cancion.getArtist(), cancion.getAlbum(), cancion.getTitle(), ".mp3");
-				case AR_TI -> ruta = Paths.get(cancion.getArtist(), cancion.getTitle(), ".mp3");
-				case AL_TI -> ruta = Paths.get(cancion.getAlbum(), cancion.getTitle(), ".mp3");
+				case AR_AL_TI -> {
+					directorios = Paths.get(cancion.getArtist(), cancion.getAlbum());
+					ruta = Paths.get(String.valueOf(directorios), cancion.getTitle() + ".mp3");
+				}
+				case AR_TI -> {
+					directorios = Paths.get(cancion.getArtist());
+					ruta = Paths.get(String.valueOf(directorios), cancion.getTitle() + ".mp3");
+				}
+				case AL_TI -> {
+					directorios = Paths.get(cancion.getAlbum());
+					ruta = Paths.get(String.valueOf(directorios), cancion.getTitle() + ".mp3");
+				}
 			}
-			Files.copy(cancion.getRuta(), ruta);
+
+			if (!new File(String.valueOf(directorios)).exists()) {
+				if (new File(String.valueOf(directorios)).mkdirs()) {
+					System.out.printf("Creando directorios %s...\n", directorios);
+				}
+			}
+
+			try {
+				Files.copy(cancion.getRuta(), ruta);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
