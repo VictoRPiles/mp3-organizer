@@ -26,7 +26,7 @@ public abstract class DirTree {
 			return false;
 		}
 
-		tipoDirTree = TipoDirTree.values()[i];
+		tipoDirTree = TipoDirTree.values()[i - 1];
 		return true;
 	}
 
