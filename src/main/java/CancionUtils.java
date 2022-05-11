@@ -18,7 +18,7 @@ public abstract class CancionUtils {
 	 */
 	public static Cancion[] getCanciones(String ruta) {
 		ArrayList<Cancion> listaCanciones = new ArrayList<>();
-		File fichero = new File(ruta);
+		File fichero = new File(ruta.trim());
 
 		if (!fichero.exists()) {
 			System.out.printf("ERROR: %s no existe.\n", ruta);
