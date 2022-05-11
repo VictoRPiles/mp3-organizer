@@ -2,6 +2,8 @@ import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.Mp3File;
 
+import java.nio.file.Path;
+
 /**
  * @author Victor
  * @since 09/05/2022 - 12:55
@@ -61,5 +63,48 @@ public class Cancion {
 			System.out.println("Have album image data, length: " + albumImageData.length + " bytes");
 			System.out.println("Album image mime type: " + id3v2Tag.getAlbumImageMimeType());
 		}
+	}
+
+	public String getArtist() {
+		if (ficheroMp3.hasId3v1Tag()) {
+			ID3v1 id3v1Tag = ficheroMp3.getId3v1Tag();
+			return id3v1Tag.getArtist();
+		}
+		if (ficheroMp3.hasId3v2Tag()) {
+			ID3v2 id3v2Tag = ficheroMp3.getId3v2Tag();
+			return id3v2Tag.getArtist();
+		}
+
+		return null;
+	}
+
+	public String getTitle() {
+		if (ficheroMp3.hasId3v1Tag()) {
+			ID3v1 id3v1Tag = ficheroMp3.getId3v1Tag();
+			return id3v1Tag.getTitle();
+		}
+		if (ficheroMp3.hasId3v2Tag()) {
+			ID3v2 id3v2Tag = ficheroMp3.getId3v2Tag();
+			return id3v2Tag.getTitle();
+		}
+
+		return null;
+	}
+
+	public String getAlbum() {
+		if (ficheroMp3.hasId3v1Tag()) {
+			ID3v1 id3v1Tag = ficheroMp3.getId3v1Tag();
+			return id3v1Tag.getAlbum();
+		}
+		if (ficheroMp3.hasId3v2Tag()) {
+			ID3v2 id3v2Tag = ficheroMp3.getId3v2Tag();
+			return id3v2Tag.getAlbum();
+		}
+
+		return null;
+	}
+
+	public Path getRuta() {
+		return Path.of(ficheroMp3.getFilename());
 	}
 }
