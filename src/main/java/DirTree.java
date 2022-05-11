@@ -51,16 +51,16 @@ public abstract class DirTree {
 		for (Cancion cancion : canciones) {
 			switch (tipoDirTree) {
 				case AR_AL_TI -> {
-					directorios = Paths.get(cancion.getArtist(), cancion.getAlbum());
-					ruta = Paths.get(String.valueOf(directorios), cancion.getTitle() + ".mp3");
+					directorios = Paths.get(normalizar(cancion.getArtist()), normalizar(cancion.getAlbum()));
+					ruta = Paths.get(String.valueOf(directorios), normalizar(cancion.getTitle() + ".mp3"));
 				}
 				case AR_TI -> {
-					directorios = Paths.get(cancion.getArtist());
-					ruta = Paths.get(String.valueOf(directorios), cancion.getTitle() + ".mp3");
+					directorios = Paths.get(normalizar(cancion.getArtist()));
+					ruta = Paths.get(String.valueOf(directorios), normalizar(cancion.getTitle() + ".mp3"));
 				}
 				case AL_TI -> {
-					directorios = Paths.get(cancion.getAlbum());
-					ruta = Paths.get(String.valueOf(directorios), cancion.getTitle() + ".mp3");
+					directorios = Paths.get(normalizar(cancion.getAlbum()));
+					ruta = Paths.get(String.valueOf(directorios), normalizar(cancion.getTitle() + ".mp3"));
 				}
 			}
 
@@ -76,5 +76,10 @@ public abstract class DirTree {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	/** Remplaza caracteres especiales (con la excepción de acentos, dieresis, comas,puntos y paréntesis) por '-' */
+	public static String normalizar(String nombre) {
+		return nombre.replaceAll("[^A-Za-zÀ-ÿ\\d\s+,.()]", "-");
 	}
 }
