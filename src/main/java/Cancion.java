@@ -28,7 +28,6 @@ public class Cancion {
 		if (ficheroMp3.hasId3v2Tag()) {
 			ID3v2 id3v2Tag = ficheroMp3.getId3v2Tag();
 			getTagsComunes(id3v2Tag);
-			System.out.println("Lyrics: " + id3v2Tag.getLyrics());
 			System.out.println("Composer: " + id3v2Tag.getComposer());
 			System.out.println("Publisher: " + id3v2Tag.getPublisher());
 			System.out.println("Original artist: " + id3v2Tag.getOriginalArtist());
