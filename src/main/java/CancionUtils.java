@@ -21,13 +21,13 @@ public abstract class CancionUtils {
 		File fichero = new File(ruta);
 
 		if (!fichero.exists()) {
-			System.out.printf("ERROR: %s no existe\n", ruta);
+			System.out.printf("ERROR: %s no existe.\n", ruta);
 			return null;
 		}
 
 		if (!fichero.isDirectory()) {
 			if (!fichero.getPath().endsWith(".mp3")) {
-				System.out.printf("ERROR: %s no es un fichero mp3\n", ruta);
+				System.out.printf("ERROR: %s no es un fichero mp3.\n", ruta);
 				return null;
 			}
 
@@ -45,6 +45,12 @@ public abstract class CancionUtils {
 		System.out.printf("%s es un directorio, iniciando búsqueda recursiva...\n", ruta);
 		getCancionesRecursivo(fichero, listaCanciones);
 
+		if (listaCanciones.isEmpty()) {
+			System.out.println("No se han encontrado canciones.");
+			return null;
+		}
+
+		System.out.printf("Se han encontrado %d canciones.\n", listaCanciones.size());
 		return listaCanciones.toArray(new Cancion[0]);
 	}
 
